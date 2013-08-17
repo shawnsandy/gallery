@@ -22,7 +22,8 @@ class Gallery {
             $config,
             $images = array(),
             $thumbnails = array(),
-            $resize_error = array();
+            $resize_error = array(),
+            $source = array();
 
     public function plugins_loaded() {
 
@@ -53,7 +54,7 @@ class Gallery {
 
         if (isset($settings['gallery_settings']))
             $this->config = $settings['gallery_settings'];
-            $this->theme_dir = $settings['theme'];
+        $this->theme_dir = $settings['theme'];
     }
 
     public function file_meta(&$meta) {
@@ -79,14 +80,17 @@ class Gallery {
         //echo $this->current_page;
         $this->theme_url = $twig_vars['base_url'];
 
+        $gallery_dir = $this->theme_url . '/content/gallery/' . $this->current_page ;
+
         $this->get_gallery();
+        $twig_vars['gallery_image_dir'] = $gallery_dir.'/';
+        $twig_vars['gallery_thumb_dir'] = $gallery_dir.'/thumbs/';
         $twig_vars['gallery'] = $this->images;
+        $twig_vars['gallery_images'] = $this->source;
         $thumbs = $this->thumbnails;
-        unset($thumbs[0],$thumbs[1]);
+        unset($thumbs[0], $thumbs[1]);
         $twig_vars['gallery_thumbnails'] = $thumbs;
-        //var_dump($this->resize_error);
-
-
+        //var_dump($this->source);
     }
 
     public function after_render(&$output) {
@@ -111,18 +115,16 @@ class Gallery {
             while (false !== ($file = readdir($handle))) {
                 $file_thumb = $this->gallery_dir . "/thumbs/" . $file;
                 $file = $directory . "/" . $file;
-                if (strstr($file, '.jpg') OR strstr($file, '.png')){
-                     $this->create_thumbs($file, $file_thumb);
-                    $this->images[] = $directory_url .'/'.basename(preg_replace("/\/\//si", "/", $file));
+                if (strstr($file, '.jpg') OR strstr($file, '.png')) {
+                    $this->create_thumbs($file, $file_thumb);
+                    $this->images[] = basename(preg_replace("/\/\//si", "/", $file));
+                    $this->source[] = $directory_url . '/' . basename(preg_replace("/\/\//si", "/", $file));
                     //resze the images create thumbs
 
-                    $this->thumbnails[] = $directory_url . '/thumbs/' . basename(preg_replace("/\/\//si", "/", $file));;
+                    $this->thumbnails[] = $directory_url . '/thumbs/' . basename(preg_replace("/\/\//si", "/", $file));
+                    ;
                 }
-
-                    }
-
-
-
+            }
             closedir($handle);
 
         }
@@ -161,7 +163,7 @@ class Gallery {
 
         $image->resize($width, $height, ZEBRA_IMAGE_CROP_CENTER);
 
-        $this->resize_error[] = $image->error .' -- '.$target_image;
+        $this->resize_error[] = $image->error . ' -- ' . $target_image;
         return $image->error;
     }
 
