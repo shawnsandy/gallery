@@ -9,6 +9,7 @@
  * @author Shawn Sandy
  * @link http://www.shawnsandy.com
  * @license http://opensource.org/licenses/MIT
+ * TODO - Integrate EXIF data
  *
  */
 include_once dirname(__FILE__) . '/lib/Zebra_Image.php';
