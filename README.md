@@ -1,7 +1,12 @@
 Gallery
 =======
 
-A simple Pico plugin for creating images galleries with auto thumbnail creation,
+A simple Pico plugin for creating images galleries with auto thumbnail creation.
+
+Features
+* Seperate page galleries
+* Auto thumbnail creation
+*
 
 Installation / Usage
 --------------------
@@ -23,6 +28,12 @@ Installation / Usage
 {% endfor %}
 
 ```
+
+TODO
+----
+
+Add image EXIF data.
+Document Code
 
 
 License
