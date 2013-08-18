@@ -91,6 +91,17 @@ class Gallery {
         unset($thumbs[0], $thumbs[1]);
         $twig_vars['gallery_thumbnails'] = $thumbs;
         //var_dump($this->source);
+
+        //borowed form pico slider
+        if(!empty($twig_vars['gallery'])):
+         foreach ($twig_vars['gallery'] as &$image) {
+            $array = array();
+            $array['url'] = $gallery_dir.'/'.$image;
+            $array['thumb_url'] = $gallery_dir.'/thumbs/'.$image;
+            $image = $array;
+        }
+        endif;
+
     }
 
     public function after_render(&$output) {
@@ -135,8 +146,8 @@ class Gallery {
     public function create_thumbs($source_image, $target_image) {
 
         $quality = 100;
-        $width = 300;
-        $height = 300;
+        $width = 380;
+        $height = 280;
 
         $settings = $this->config;
 
@@ -164,6 +175,9 @@ class Gallery {
         $image->resize($width, $height, ZEBRA_IMAGE_CROP_CENTER);
 
         $this->resize_error[] = $image->error . ' -- ' . $target_image;
+        if($image->error == 0)
+            echo '<div style="font-weight: bold; padding: 20px">Thumbnails created</div>';
+
         return $image->error;
     }
 
