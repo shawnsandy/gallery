@@ -86,12 +86,7 @@ class Gallery {
         $twig_vars['gallery_image_dir'] = $gallery_dir.'/';
         $twig_vars['gallery_thumb_dir'] = $gallery_dir.'/thumbs/';
         $twig_vars['gallery'] = $this->images;
-        $twig_vars['gallery_images'] = $this->source;
-        $thumbs = $this->thumbnails;
-        unset($thumbs[0], $thumbs[1]);
-        $twig_vars['gallery_thumbnails'] = $thumbs;
         //var_dump($this->source);
-
         //borowed form pico slider
         if(!empty($twig_vars['gallery'])):
          foreach ($twig_vars['gallery'] as &$image) {
@@ -132,7 +127,6 @@ class Gallery {
                     $this->source[] = $directory_url . '/' . basename(preg_replace("/\/\//si", "/", $file));
                     //resze the images create thumbs
 
-                    $this->thumbnails[] = $directory_url . '/thumbs/' . basename(preg_replace("/\/\//si", "/", $file));
                     ;
                 }
             }
@@ -175,8 +169,11 @@ class Gallery {
         $image->resize($width, $height, ZEBRA_IMAGE_CROP_CENTER);
 
         $this->resize_error[] = $image->error . ' -- ' . $target_image;
-        if($image->error == 0)
-            echo '<div style="font-weight: bold; padding: 20px">Thumbnails created</div>';
+        if($image->error == 0):
+            $file = basename($source_image);
+           echo $file." -- Gallery thumbnail created </br>";
+        endif;
+
 
         return $image->error;
     }
