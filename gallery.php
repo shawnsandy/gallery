@@ -5,7 +5,7 @@
  *
  * @package Pico
  * @subpackage Gallery
- * @since version 0.1
+ * @since version 0.1 Beta
  * @author Shawn Sandy
  * @link http://www.shawnsandy.com
  * @license http://opensource.org/licenses/MIT
@@ -59,9 +59,11 @@ class Gallery {
     }
 
     public function file_meta(&$meta) {
-        if (isset($meta['slug']))
-            $this->current_page = $meta['slug'];
-        //if (isset($meta['']))
+        if (isset($meta['slug'])){
+           if(is_dir(ROOT_DIR . 'content/gallery/' . $meta['slug']))
+                    $this->current_page = $meta['slug'];
+        }
+
     }
 
     public function content_parsed(&$content) {
@@ -82,6 +84,7 @@ class Gallery {
         $this->theme_url = $twig_vars['base_url'];
 
         $gallery_dir = $this->theme_url . '/content/gallery/' . $this->current_page ;
+
 
         $this->get_gallery();
         $twig_vars['gallery_image_dir'] = $gallery_dir.'/';
