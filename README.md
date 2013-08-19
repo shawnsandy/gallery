@@ -4,7 +4,7 @@ Gallery
 A simple Pico plugin for creating images galleries with auto thumbnail creation.
 
 * Simple and easy to use plugin setup and configuration
-* Automatically find and load galleries for pages from folders with the file name or page slug (Adv Meta plugin required).
+* Automatically find and load galleries for pages from folders with the page file name or page meta slug (Adv Meta plugin required).
 * Thumbnail generation.
 * ...
 
@@ -13,11 +13,12 @@ Installation / Usage
 --------------------
 
 1. Copy the plugin file/folder the plugins directory of your Pico site.
-2. Create the gallery folder using the file name or page slug (Adv Meta plugin required).
-3. Create a new folder in the gallery named thumbs
-4. Upload your full sized images
-5. Add code below to theme
-6. Visit the page and you will get a one time thumbnail generation success notice.
+2. Create a folder named gallery in your content directory
+3. Add a folder to the gallery directory name it using the page file name or page slug (Adv Meta plugin required) -- for a gallery on your index.md page create a folder named index and add inside it add a thumbs folder.
+4. Create a new folder inside of the page gallery (step 3) named thumbs
+5. Upload your full sized images
+6. Add the sample code below your theme.
+7. Visit the page and you will get a one time thumbnail generation success notice.
 
 ``` html
 
@@ -34,9 +35,9 @@ Installation / Usage
 TODO
 ----
 
-Add image EXIF data.
-Document Code
-
+* Add image EXIF data.
+* Document Code
+* ...
 
 License
 -------
