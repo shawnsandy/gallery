@@ -17,7 +17,7 @@ Installation / Usage
 3. Add a folder to the gallery directory name it using the page file name or page slug (Adv Meta plugin required) -- for a gallery on your index.md page create a folder named index and inside it add a thumbs folder.
 4. Upload your full sized images to the main folder (/index)
 5. Add the sample code below your theme.
-6. Visit the page and you will get a one time thumbnail generation success notice.
+6. Visit the page, once everything went well your images will appear.
 
 ``` html
 

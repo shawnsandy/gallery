@@ -82,10 +82,7 @@ class Gallery {
 
         //echo $this->current_page;
         $this->theme_url = $twig_vars['base_url'];
-
         $gallery_dir = $this->theme_url . '/content/gallery/' . $this->current_page ;
-
-
         $this->get_gallery();
         $twig_vars['gallery_image_dir'] = $gallery_dir.'/';
         $twig_vars['gallery_thumb_dir'] = $gallery_dir.'/thumbs/';
@@ -100,7 +97,6 @@ class Gallery {
             $image = $array;
         }
         endif;
-
     }
 
     public function after_render(&$output) {
@@ -177,9 +173,8 @@ class Gallery {
             $file = basename($source_image);
            echo $file." -- Gallery thumbnail created </br>";
         endif;
-
-
         return $image->error;
+        
     }
 
 }
